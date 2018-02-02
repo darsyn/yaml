@@ -1,0 +1,27 @@
+{
+    "name": "darsyn/yaml",
+    "description": "A decorator for Symfony's YAML component, allowing for distributed YAML configuration.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Darsyn\\Yaml\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Darsyn\\Yaml\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "symfony/yaml": "^4.0",
+        "symfony/config": "^4.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zan Baldwin",
+            "email": "hello@zanbaldwin.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
