@@ -14,14 +14,14 @@ class DistributedYaml extends Yaml
 {
     protected const IMPORT_TAG = 'import';
 
-    public static function parseFile(string $filename, int $flags = 0): mixed
+    public static function parseFile(string $filename, int $flags = 0)
     {
         $yaml = new Parser;
-        $data = $yaml->parseFile($filename, $flags | BaseYaml::PARSE_CUSTOM_TAGS);
+        $data = $yaml->parseFile($filename, $flags | Yaml::PARSE_CUSTOM_TAGS);
         array_walk_recursive($data, function (&$value) use ($flags, $filename) {
             if ($value instanceof TaggedValue && $value->getTag() === static::IMPORT_TAG) {
                 $value = static::importFile($value->getValue(), $flags, $filename);
-            } elseif ($flags & BaseYaml::PARSE_CUSTOM_TAGS === 0) {
+            } elseif ($flags & Yaml::PARSE_CUSTOM_TAGS === 0) {
                 throw new ParseException(sprintf(
                     'Tags support is not enabled. You must use the flag `Yaml::PARSE_CUSTOM_TAGS` to use "%s".',
                     $value->getTag()
@@ -31,7 +31,7 @@ class DistributedYaml extends Yaml
         return $data;
     }
 
-    private static function importFile(string $value, int $flags, $callingFile): mixed
+    private static function importFile(string $value, int $flags, $callingFile)
     {
         static $fileLocator;
         if ($fileLocator === null) {
